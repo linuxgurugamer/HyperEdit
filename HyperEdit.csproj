@@ -1,12 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+<!-- // To switch between Release and Debug, change the next line (5). -->
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2FF6FC29-02C3-489C-9EFE-B913973AF85B}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>HyperEdit</RootNamespace>
     <AssemblyName>HyperEdit</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
     <MyFileName>$(AssemblyName).dll</MyFileName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ErrorReport>prompt</ErrorReport>
@@ -14,9 +15,17 @@
     <ConsolePause>false</ConsolePause>
     <NoConfig>true</NoConfig>
     <NoStdLib>true</NoStdLib>
+<!-- // This is for Ezriilc's IDE, please leave this comment here, but change the next line (21) to your own KSP install directory.
+    <KspInstallDir Condition=" '$(KspInstallDir)' == '' ">..\..\..\Games\Kerbal Space Program\KSP_win64</KspInstallDir>
+-->
     <KspInstallDir Condition=" '$(KspInstallDir)' == '' ">..\..\..\Games\Kerbal Space Program\KSP_win64</KspInstallDir>
     <KspOutputPath>$(KspInstallDir)\GameData\Kerbaltek</KspOutputPath>
-    <KspLibPath>$(KspInstallDir)\KSP_Data\Managed</KspLibPath>
+<!-- // This is for Ezriilc's IDE, please leave this comment here, but change the next line (28) to your own KSP library directory.
+      <KspLibPath>$(KspInstallDir)\KSP_x64_Data\Managed</KspLibPath>
+      On a Mac this would be:
+      <KspLibPath>$(KspInstallDir)/KSP.app/Contents/Resources/Data/Managed</KspLibPath>
+-->
+    <KspLibPath>$(KspInstallDir)\KSP_x64_Data\Managed</KspLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,6 +51,18 @@
     <Reference Include="UnityEngine">
       <HintPath>$(KspLibPath)\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>$(KspLibPath)\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(KspLibPath)\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(KspLibPath)\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(KspLibPath)\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>$(KspLibPath)\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -58,10 +79,6 @@
   <ItemGroup>
     <Compile Include="Source\*" />
     <Compile Include="Source\*\*" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="$(AssemblyName).version" />
-    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
